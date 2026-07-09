@@ -18,12 +18,12 @@ const Sidebar = () => {
   };
 
   const navItems = [
-    { name: 'Dashboard', path: '/', icon: <MdDashboard size={24} /> },
-    { name: 'Orders', path: '/orders', icon: <MdReceipt size={24} /> },
-    { name: 'Kitchen Board', path: '/kitchen-board', icon: <MdKitchen size={24} /> },
-    { name: 'Delivery', path: '/delivery', icon: <MdDeliveryDining size={24} /> },
-    { name: 'Analytics', path: '/analytics', icon: <MdAnalytics size={24} /> },
-    { name: 'Settings', path: '/settings', icon: <MdSettings size={24} /> },
+    { name: 'Dashboard', path: '/dashboard', icon: <MdDashboard size={24} /> },
+    { name: 'Orders', path: '/dashboard/orders', icon: <MdReceipt size={24} /> },
+    { name: 'Kitchen Board', path: '/dashboard/kitchen-board', icon: <MdKitchen size={24} /> },
+    { name: 'Delivery', path: '/dashboard/delivery', icon: <MdDeliveryDining size={24} /> },
+    { name: 'Analytics', path: '/dashboard/analytics', icon: <MdAnalytics size={24} /> },
+    { name: 'Settings', path: '/dashboard/settings', icon: <MdSettings size={24} /> },
   ];
 
   return (

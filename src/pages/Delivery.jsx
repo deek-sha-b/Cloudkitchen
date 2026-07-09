@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getOrders, updateOrder, createOrder } from '../services/api';
 import toast from 'react-hot-toast';
-import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 
 const Delivery = () => {
   const [orders, setOrders] = useState([]);
@@ -45,20 +44,6 @@ const Delivery = () => {
     }
   };
 
-  // Maps Setup
-  const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
-    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY || ''
-  });
-
-  const center = { lat: 12.9716, lng: 77.5946 }; // Bangalore coords
-  const markers = [
-    { position: { lat: 12.9716, lng: 77.5946 }, label: 'K' }, // Kitchen
-    { position: { lat: 12.9810, lng: 77.6000 }, label: 'C1' }, // Customer 1
-    { position: { lat: 12.9650, lng: 77.5800 }, label: 'C2' }, // Customer 2
-    { position: { lat: 12.9750, lng: 77.6100 }, label: 'C3' }, // Customer 3
-  ];
-
   // Simulation Logic
   useEffect(() => {
     let simInterval;
@@ -67,16 +52,18 @@ const Delivery = () => {
         const brands = ['Pizza Palace', 'Burger Hub', 'Biryani Express'];
         const foods = ['Margherita Pizza', 'Classic Burger', 'Chicken Biryani'];
         const sources = ['Swiggy', 'Zomato', 'Uber Eats'];
+        const mockNames = ['Rahul Sharma', 'Priya Patel', 'Amit Kumar', 'Sneha Reddy', 'Vikram Singh', 'Neha Gupta'];
         
         const newOrder = {
-          customerName: `SimCustomer ${Math.floor(Math.random() * 1000)}`,
+          customerName: mockNames[Math.floor(Math.random() * mockNames.length)],
           phone: '9999999999',
           brand: brands[Math.floor(Math.random() * brands.length)],
           foodItem: foods[Math.floor(Math.random() * foods.length)],
           quantity: 1,
           price: 250,
+          totalAmount: 250,
           source: sources[Math.floor(Math.random() * sources.length)],
-          status: 'New'
+          status: 'Packed'
         };
         
         try {
@@ -162,23 +149,6 @@ const Delivery = () => {
               )}
             </tbody>
           </table>
-        </div>
-      </div>
-
-      <div className="w-full lg:w-1/3 bg-white rounded-2xl shadow-sm p-4 h-[400px] lg:h-auto flex flex-col">
-        <h3 className="font-bold mb-4">Live Map</h3>
-        <div className="flex-1 bg-gray-100 rounded-xl overflow-hidden relative">
-          {isLoaded ? (
-            <GoogleMap mapContainerStyle={{width: '100%', height: '100%'}} center={center} zoom={13}>
-              {markers.map((m, i) => (
-                <Marker key={i} position={m.position} label={m.label} />
-              ))}
-            </GoogleMap>
-          ) : (
-            <div className="flex items-center justify-center h-full text-gray-500">
-              {import.meta.env.VITE_GOOGLE_MAPS_API_KEY ? 'Loading Map...' : 'Google Maps API Key Missing'}
-            </div>
-          )}
         </div>
       </div>
     </div>
